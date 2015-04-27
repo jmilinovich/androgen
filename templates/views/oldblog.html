@@ -3,38 +3,42 @@
 {% macro blogPost(post) %}
 <div class="post" data-ks-editable="editable(user, { list: " Post ", id: post.id })">
 	<!--Workspace-->
-	<tr>
-	<td class="blogCell">
-		{% if post.image.exists %}
-			<img src="{{ post._.image.fit(180,200) }}" class="img pull-left">
-		{% endif %}
-	</td>
-	<td class="blogCell">
-		<h2>
-			<a href="/blog/post/{{ post.slug }}">{{ post.title }}</a>
-		</h2>
-		<p class="lead text-muted someclass">Posted
-			{% if post.publishedDate %}
-				on {{ post._.publishedDate.format("MMMM Do, YYYY") }}
-			{% endif %}
-			{% if post.categories and post.categories.length %}
-				in {% for cat in post.categories %}<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>{% if loop.index < post.categories.length %}, {% endif %}{% endfor %}
-			{% endif %}
-			{% if post.author %}
-				<br>by {{ post.author.name.first }}
-			{% endif %}
-		</p>
-		
-		<p>{{ post.content.brief|safe }}</p>
-		{% if post.content.extended %}
-			<p class="read-more">
-				<a href="/blog/post/{{ post.slug }}">Read more...</a>
-			</p>
-		{% endif %}
-	</td> 
-	</tr>	
+	<table style="width:100%">
+	  <tr>
+	    <td>Jill</td>
+	    <td>Smith</td> 
+	    <td>50</td>
+	  </tr>
+	  <tr>
+	    <td>Eve</td>
+	    <td>Jackson</td> 
+	    <td>94</td>
+	  </tr>
+	</table>
 	<!--Workspace end-->
-	
+	<h2>
+		<a href="/blog/post/{{ post.slug }}">{{ post.title }}</a>
+	</h2>
+	<p class="lead text-muted someclass">Posted
+		{% if post.publishedDate %}
+			on {{ post._.publishedDate.format("MMMM Do, YYYY") }}
+		{% endif %}
+		{% if post.categories and post.categories.length %}
+			in {% for cat in post.categories %}<a href="/blog/{{ cat.key }}">{{ cat.name }}</a>{% if loop.index < post.categories.length %}, {% endif %}{% endfor %}
+		{% endif %}
+		{% if post.author %}
+			<br>by {{ post.author.name.first }}
+		{% endif %}
+	</p>
+	{% if post.image.exists %}
+		<img src="{{ post._.image.fit(180,200) }}" class="img pull-right">
+	{% endif %}
+	<p>{{ post.content.brief|safe }}</p>
+	{% if post.content.extended %}
+		<p class="read-more">
+			<a href="/blog/post/{{ post.slug }}">Read more...</a>
+		</p>
+	{% endif %}
 </div>
 {% endmacro %}
 
@@ -67,16 +71,7 @@
 						<h4 class="text-weight-normal">Showing {{ utils.plural(data.posts.results.length, "* post") }}.</h4>
 					{% endif %}
 					<div class="blog">
-					
-					{% for post in data.posts.results %} 
-						<table class="imageLeft">
-							{{ blogPost(post) }}
-							<hr/>
-						</table> 
-					{% endfor %}
-
-					
-						
+						{% for post in data.posts.results %} {{ blogPost(post) }} {% endfor %}
 					</div>
 					{% if data.posts.totalPages > 1 %}
 						<ul class="pagination">

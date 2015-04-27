@@ -2,35 +2,37 @@
 
 {% block content %}
 	<div class="container">
-		<div class='someclass'>
-		    hello foo
-	    </div>
 		<div class="jumbotron">
-			<img src="/images/logo.svg" width="160">
+			<!-- <img src="/images/logo.svg" width="160"> -->
 			<h1>Welcome</h1>
-			<p>This is your new <a href="http://keystonejs.com", target="_blank">KeystoneJS</a> website.</p>
-			<p>
-				It includes the latest versions of
-				<a href="http://getbootstrap.com/" target="_blank">Bootstrap</a>
-				and <a href="http://www.jquery.com/" target="_blank">jQuery</a>.
-			</p>
-			<p>Visit the <a href="http://keystonejs.com/guide" target="_blank">Getting Started</a> guide to learn how to customise it.</p>
+			<p>This will be your new favorite website.</p>
+			
 			<hr>
 			{% if user and user.canAccessKeystone %}
 				<p>
 					<a href="/keystone" class="btn btn-lg btn-primary">Open the Admin UI</a>
 				</p>
 			{% else %}
-				<p>We have created a default Admin user for you with the email <strong>user@keystonejs.com</strong> and the password <strong>starcraft</strong>.</p>
+				<p>We have created the ultimate knowledge compedium for aspiring tech entrepeneurs, college freshmen, and all the wanna-be's in between. <strong> I will speak freely on controversial topics. Discussion is welcome, trolling of any form is a distraction and successful people remove all unnecessary distractions from their lives. </strong> </p>
 				<p>
 					<a href="/keystone/signin" style="margin-right: 10px" class="btn btn-lg btn-primary">Sign in</a>
-					to use the Admin UI.
+					
 				</p>
 			{% endif %}
 			<hr>
 			<p>
-				Remember to <a href="https://github.com/keystonejs/keystone" target="_blank">Star KeystoneJS on GitHub</a> and
-				<a href="https://twitter.com/keystonejs" target="_blank">follow @keystonejs</a> on twitter for updates.
+				Themes of this blog
+				<ul>
+					<li>
+						Articles with sources cited, favoring research and academic articles
+					</li>
+					<li>
+						Will not be sponsored by any commercial third party. My recommendations are mine alone.
+					</li>
+					<li>
+						The goal of this blog is to help many men (and women) reach their health, financial and relationship goals.
+					</li>
+				</ul>
 			</p>
 		</div>
 	</div>

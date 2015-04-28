@@ -23,12 +23,6 @@ exports = module.exports = function(req, res) {
 			
 			locals.data.posts = results;
 			
-			//dbg
-			_.each(locals.data.posts, function(item){
-				console.log('results title',item.title);
-			});
-			//edbg
-			
 			next(err);
 		});
 		

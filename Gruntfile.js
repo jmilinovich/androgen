@@ -1,48 +1,62 @@
-'use strict()';
-
-var config= {
-	port: 3000
-};
-
 module.exports = function(grunt) {
 
-	// Load grunt tasks automatically
-	require('load-grunt-tasks')(grunt);
+  
+  require('load-grunt-tasks')(grunt);
 
 	// Time how long tasks take. Can help when optimizing build times
-	require('time-grunt')(grunt);
+  require('time-grunt')(grunt);
 
-	var options = {
-		config: {
-			src: './grunt/*.js'
-		},
-		pkg: grunt.file.readJSON('package.json')
-	};
+  grunt.initConfig({
+    jsDir: 'routes/',
+    viewDir: 'routes/views/',
+    jsDistDir: 'dist/javascripts/',    
+    pkg: grunt.file.readJSON('package.json'),
+    concat: {
+      js: {
+        options: {
+          separator: ';'
+        },
+        src: ['<%=jsDir%>*.js','<%=viewDir%>*.js'],
+        dest: '<%=jsDistDir%><%= pkg.name %>.js'
+      }
+    },
+    uglify: {
+      options: {
+        banner: '/*! <%= pkg.name %> <%=grunt.template.today("dd-mm-yyyy") %> */\n'
+      },
+      dist: {
+        files: {
+          '<%=jsDistDir%><%= pkg.name %>.min.js': ['<%= concat.js.dest %>']
+        }
+      }
+    },
+    watch: {
+	    files: ['<%=jsDir%>*.js','<%=viewDir%>*.js'],
+	    tasks: ['concat', 'uglify']
+    }
+  });
 
-	var configs = require('load-grunt-configs')(grunt, options);
-	
-	// Project configuration.
-	grunt.initConfig(configs);
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-	// load jshint
-	grunt.registerTask('lint', [
-		'jshint'
-	]);
+  grunt.registerTask('default', [
+    'concat',
+    'uglify',
+    'watch'
+  ]);
 
-	grunt.registerTask('dev', [
-		'sass',
-		'watch'
-	]);
+  grunt.registerTask('serve', [
+	'concat',
+    'uglify',
+    'watch',
+	'concurrent:dev'
+]);
 
-	// default option to connect server
-	grunt.registerTask('serve', [
-		'jshint',
-		'concurrent:dev'
-	]);
-
-	grunt.registerTask('server', function () {
-		grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
-		grunt.task.run(['serve:' + target]);
-	});
-
+  grunt.registerTask('test', [
+    'concat',
+    'uglify',
+    'watch'
+  ]);
+  
 };

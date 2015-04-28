@@ -6,7 +6,7 @@
 	<tr>
 	<td class="blogCell">
 		{% if post.image.exists %}
-			<img src="{{ post._.image.fit(180,200) }}" class="img pull-left">
+			<img src="{{ post._.image.fit(200,200) }}" class="img pull-left">
 		{% endif %}
 	</td>
 	<td class="blogCell">
@@ -79,11 +79,13 @@
 					{% endif %}
 					<div class="blog">
 					
-					{% for post in data.posts.results %} 
-						<table class="imageLeft">
-							{{ blogPost(post) }}
-							<hr/>
-						</table> 
+					{% for post in data.posts.results %}
+						<div class="table-responsive"> 
+							<table class="imageLeft">
+								{{ blogPost(post) }}
+								<hr/>
+							</table> 
+						</div>
 					{% endfor %}
 
 					
